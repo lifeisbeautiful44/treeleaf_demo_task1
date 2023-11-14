@@ -31,4 +31,22 @@ public class CommentController {
         List<CommentResponseUseCase> commentByPostId = commentUseCase.findCommentByPostId(postId);
         return new ResponseEntity<>(commentByPostId, HttpStatus.OK);
     }
+
+    @PutMapping("{postId}/comment/{commentId}")
+    public void updateComment(@PathVariable(name = "postId") long postId,
+                              @RequestBody Comment comment,
+                              @PathVariable(name = "commentId")long commentId)
+    {
+        commentUseCase.updateComment(comment,commentId,postId);
+        System.out.println("Update Comment");
+    }
+
+    @DeleteMapping("{postId}/comment/{commentId}")
+    public void deleteComment(@PathVariable(name = "postId") long postId,
+                              @RequestBody Comment comment,
+                              @PathVariable(name = "commentId")long commentId)
+    {
+        commentUseCase.deleteComment(commentId);
+        System.out.println("Deleted Comment");
+    }
 }

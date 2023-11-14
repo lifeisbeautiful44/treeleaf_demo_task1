@@ -22,11 +22,44 @@ public class CommentRepository {
     public List<Comment> findCommentsByPostId(long postId)
     {
         String sql =   " SELECT *  FROM comment  INNER JOIN post ON comment.post_id = post.id where post_id = ? ";
-
-        List<Comment> comments = jdbcTemplate.query(sql, new CommentRowMapper(), postId);
-
+        List<Comment> comments = jdbcTemplate.query(sql, new CommentWithPostInfoRowMapper(), postId);
         return comments;
     }
 
+    public void updateComment(Comment comment , long commentId,  long postId)
+    {
+        Comment savedPreviousComment = findCommentByID(commentId);
+
+        if (comment.getBody() !=null )
+        {
+            savedPreviousComment.setBody(comment.getBody());
+        }
+
+
+        String sql = "UPDATE comment SET body = ?, email = ?, name = ? WHERE id = ?";
+
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                savedPreviousComment.getBody(),
+                savedPreviousComment.getEmail(),
+                savedPreviousComment.getName(),
+                commentId
+        );
+        System.out.println("Rows affected" + rowsAffected);
+
+    }
+
+    private Comment findCommentByID(long commentId) {
+        String sql = "select * from comment where id = ?";
+        CommentRowMapper commentRowMapper = new CommentRowMapper() ;
+        Comment comment = jdbcTemplate.queryForObject(sql, commentRowMapper, commentId);
+        return comment;
+    }
+
+
+    public void delete(Long commentId) {
+        String sql = "DELETE FROM comment WHERE id = ?";
+        jdbcTemplate.update(sql, commentId);
+    }
 
 }

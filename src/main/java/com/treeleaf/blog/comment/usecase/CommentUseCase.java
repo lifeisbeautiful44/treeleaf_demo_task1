@@ -26,4 +26,14 @@ public class CommentUseCase {
         List<CommentResponseUseCase> commentResponseUseCases = CommentConverter.MapEntityToCommentResponse(commentsByPostId);
         return commentResponseUseCases;
     }
+
+    public void updateComment(Comment comment , long commentId, long postId)
+    {
+        commentRepository.updateComment(comment,commentId,postId);
+    }
+
+    public void deleteComment(long commentId)
+    {
+        commentRepository.delete(commentId);
+    }
 }
