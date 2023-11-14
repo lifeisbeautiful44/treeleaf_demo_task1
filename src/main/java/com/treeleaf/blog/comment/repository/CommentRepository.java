@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CommentRepository {
 
@@ -17,6 +19,14 @@ public class CommentRepository {
 
     }
 
+    public List<Comment> findCommentsByPostId(long postId)
+    {
+        String sql =   " SELECT *  FROM comment  INNER JOIN post ON comment.post_id = post.id where post_id = ? ";
+
+        List<Comment> comments = jdbcTemplate.query(sql, new CommentRowMapper(), postId);
+
+        return comments;
+    }
 
 
 }

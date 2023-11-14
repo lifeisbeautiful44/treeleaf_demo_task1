@@ -15,6 +15,11 @@ public class Post {
         this.description = description;
     }
 
+    public Post()
+    {
+
+    }
+
     public long getId() {
         return id;
     }

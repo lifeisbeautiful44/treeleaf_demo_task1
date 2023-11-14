@@ -1,32 +1,23 @@
-package com.treeleaf.blog.comment.repository;
+package com.treeleaf.blog.comment.usecase;
+
+
 import com.treeleaf.blog.post.repository.Post;
 
-public class Comment {
-    private long id;
+public class CommentResponseUseCase {
 
     private Post post;
     private String name;
     private String email;
     private String body;
 
-    public Comment()
-    {
-
+    public CommentResponseUseCase() {
     }
-    public Comment(long id, Post post, String name, String email, String body) {
-        this.id = id;
+
+    public CommentResponseUseCase(Post post, String name, String email, String body) {
         this.post = post;
         this.name = name;
         this.email = email;
         this.body = body;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Post getPost() {
@@ -63,9 +54,8 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", post=" + post +
+        return "CommentResponseUseCase{" +
+                "post=" + post +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", body='" + body + '\'' +
