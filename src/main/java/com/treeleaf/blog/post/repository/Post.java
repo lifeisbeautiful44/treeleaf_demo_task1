@@ -1,6 +1,8 @@
 package com.treeleaf.blog.post.repository;
 
 
+import jakarta.annotation.Nullable;
+
 public class Post {
 
     private long id;
