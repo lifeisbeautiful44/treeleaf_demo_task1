@@ -12,7 +12,8 @@ public class PostRowMapper implements RowMapper<Post> {
         return new Post(
                 rs.getLong("id"),
                 rs.getString("title"),
-                rs.getString("description")
+                rs.getString("description"),
+                rs.getString("imageName")
         );
     }
 }

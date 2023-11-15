@@ -1,8 +1,10 @@
 package com.treeleaf.blog.post.repository;
 
+import com.treeleaf.blog.post.usecase.image.ImageStorageUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,6 +13,10 @@ public class PostRespository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private ImageStorageUseCase imageStorageUseCase;
+
 
     public void savePost(Post post) {
         String sql = "INSERT INTO post (title, description) VALUES (?, ?)";
@@ -31,8 +37,14 @@ public class PostRespository {
             post.setDescription(savedPreviousPost.getDescription());
         }
 
-        String sql = "UPDATE post SET title = ?, description = ? WHERE id = ?";
-        int rowsAffected = jdbcTemplate.update(sql, post.getTitle(), post.getDescription(), postId);
+
+        if(post.getImageName() == null)
+        {
+            post.setImageName(savedPreviousPost.getImageName());
+        }
+
+        String sql = "UPDATE post SET title = ?, description = ? , imageName = ? WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, post.getTitle(), post.getDescription(), post.getImageName(), postId);
 
         System.out.println("Rows affected by update: " + rowsAffected);
 

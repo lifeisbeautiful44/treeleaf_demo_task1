@@ -9,10 +9,13 @@ public class Post {
     private String title;
     private String description;
 
-    public Post(long id, String title, String description) {
+    private String imageName;
+
+    public Post(long id, String title, String description, String imageName) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.imageName = imageName;
     }
 
     public Post()
@@ -44,12 +47,21 @@ public class Post {
         this.description = description;
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", imageName='" + imageName + '\'' +
                 '}';
     }
 }

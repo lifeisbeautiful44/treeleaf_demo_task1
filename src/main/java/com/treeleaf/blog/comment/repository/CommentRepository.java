@@ -1,5 +1,7 @@
 package com.treeleaf.blog.comment.repository;
 
+import com.treeleaf.blog.comment.repository.rowmapper.CommentRowMapper;
+import com.treeleaf.blog.comment.repository.rowmapper.CommentWithPostInfoRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
