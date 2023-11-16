@@ -16,9 +16,9 @@ public class CreatePostUseCase {
     @Autowired
     private PostRespository postRespository;
 
-    public void savePost(Post post)
+    public Post savePost(Post post)
     {
-    postRespository.savePost(post);
+       return postRespository.savePost(post);
     }
 
     public void updatePost(Post post , long postId)
@@ -38,9 +38,9 @@ public class CreatePostUseCase {
        return post;
     }
 
-    public void deletePost(long postId)
+    public String deletePost(long postId)
     {
-        postRespository.delete(postId);
+        return  postRespository.delete(postId);
     }
 
 

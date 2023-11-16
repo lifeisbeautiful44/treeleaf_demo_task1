@@ -18,9 +18,12 @@ public class PostRespository {
     private ImageStorageUseCase imageStorageUseCase;
 
 
-    public void savePost(Post post) {
+    public Post savePost(Post post) {
         String sql = "INSERT INTO post (title, description) VALUES (?, ?)";
-        jdbcTemplate.update(sql,post.getTitle(),post.getDescription());
+        jdbcTemplate.update(sql, post.getTitle(), post.getDescription());
+
+        return post;
+
 
     }
 
@@ -36,7 +39,6 @@ public class PostRespository {
         {
             post.setDescription(savedPreviousPost.getDescription());
         }
-
 
         if(post.getImageName() == null)
         {
@@ -65,9 +67,12 @@ public class PostRespository {
         return posts;
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         String sql = "DELETE FROM post WHERE id = ?";
         jdbcTemplate.update(sql, id);
+
+        return "Post has been deleted";
+
     }
 
 

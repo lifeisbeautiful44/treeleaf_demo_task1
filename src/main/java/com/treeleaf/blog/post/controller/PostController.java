@@ -6,6 +6,8 @@ import com.treeleaf.blog.post.usecase.CreatePostUseCase;
 import com.treeleaf.blog.post.usecase.image.ImageStorageUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,40 +28,38 @@ public class PostController {
 
 
     @PostMapping
-    public void createPost(@RequestBody Post post)
+    public ResponseEntity<Post> createPost(@RequestBody Post post)
     {
-        createPostUseCase.savePost(post);
-        System.out.println("Post has been successfully created..");
+       Post savedPost =  createPostUseCase.savePost(post);
+        return new ResponseEntity<>(savedPost, HttpStatus.OK);
+
     }
-
-
     @PutMapping("{id}")
     public void updatePost(@RequestBody Post post , @PathVariable(name = "id") long postId)
     {
-        System.out.println(postId);
-        System.out.println(post);
         createPostUseCase.updatePost(post,postId);
     }
 
     @GetMapping
-    public void findAllPost()
+    public ResponseEntity<List<Post>> findAllPost()
     {
       List<Post>  posts = createPostUseCase.findAllPost();
-
-        System.out.println(posts);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public void findPostById(@PathVariable(name = "id") long postId)
+    public ResponseEntity<Post> findPostById(@PathVariable(name = "id") long postId)
     {
        Post post =  createPostUseCase.findByPostId(postId);
-        System.out.println(post);
+       return new ResponseEntity<>(post,HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public void deletePostById(@PathVariable(name = "id") long postId)
+    public ResponseEntity<String> deletePostById(@PathVariable(name = "id") long postId)
     {
-         createPostUseCase.deletePost(postId);
+       String message =  createPostUseCase.deletePost(postId);
+        return new ResponseEntity<>(message,HttpStatus.OK);
+
     }
 
 
